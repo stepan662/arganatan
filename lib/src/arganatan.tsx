@@ -1,11 +1,16 @@
-import React, { RefObject, useContext, useRef } from "react";
+import React, { RefObject, useRef } from "react";
 import {
   createContext,
   useContextSelector,
   useStoreContext,
 } from "./useContextSelector";
 
-type SelectorType<StateType, ReturnType> = (state: StateType) => ReturnType;
+type SelectorType<S, R> = (state: S) => R;
+
+export type ReturnType<S, A> = {
+  state: S;
+  actions: A;
+};
 
 const createStableActions = (actions: RefObject<any>, stableActions: any) => {
   if (actions.current && !stableActions) {
@@ -20,23 +25,22 @@ const createStableActions = (actions: RefObject<any>, stableActions: any) => {
   }
 };
 
-export type ReturnType<S, A> = {
-  state: S;
-  actions: A;
-};
-
-export const createProvider = <
-  StateType,
-  Actions,
-  ProviderProps extends React.PropsWithChildren,
->(
-  controller: (
-    props: ProviderProps,
-  ) => ReturnType<StateType, Actions> | undefined | null | JSX.Element,
+export const createProvider = <StateType, Actions, ProviderProps>(
+  controller: ({
+    children,
+    ...props
+  }: React.PropsWithChildren<ProviderProps>) =>
+    | ReturnType<StateType, Actions>
+    | undefined
+    | null
+    | JSX.Element,
 ) => {
   const Context = createContext<ReturnType<StateType, Actions>>(null as any);
 
-  const Provider: React.FC<ProviderProps> = ({ children, ...props }) => {
+  const Provider: React.FC<React.PropsWithChildren<ProviderProps>> = ({
+    children,
+    ...props
+  }) => {
     const result = controller(props as any);
     const state =
       (result as Partial<ReturnType<StateType, Actions>>)?.state || undefined;

@@ -1,1 +1,1 @@
-export { createProvider } from "./arganatan";
+export { createProvider, type ReturnType } from "./arganatan";
