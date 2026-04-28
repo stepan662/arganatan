@@ -9,27 +9,27 @@ const __dirname = path.dirname(__filename);
 
 export default {
   input: path.resolve(__dirname, "lib/src/index.ts"),
-  external: ["react", "react-dom"],
+  external: ["react", "react-dom", "react/jsx-runtime"],
   plugins: [
     resolve({ extensions: [".js", ".ts", ".tsx"] }),
     commonjs(),
     typescript({
-      tsconfig: path.resolve(__dirname, "lib/src/tsconfig.json"),
+      tsconfig: path.resolve(__dirname, "lib/tsconfig.json"),
       declaration: true,
-      declarationDir: path.resolve(__dirname, "lib/src/dist"),
-      rootDir: path.resolve(__dirname, "lib/src"),
+      declarationDir: path.resolve(__dirname, "lib/dist"),
+      rootDir: path.resolve(__dirname, "lib"),
       sourceMap: true,
       jsx: "react-jsx",
     }),
   ],
   output: [
     {
-      file: path.resolve(__dirname, "lib/src/dist/index.esm.js"),
+      file: path.resolve(__dirname, "lib/dist/index.esm.js"),
       format: "esm",
       sourcemap: true,
     },
     {
-      file: path.resolve(__dirname, "lib/src/dist/index.cjs.js"),
+      file: path.resolve(__dirname, "lib/dist/index.cjs.js"),
       format: "cjs",
       sourcemap: true,
       exports: "named",
