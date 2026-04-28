@@ -4,6 +4,8 @@ import {
   useContextSelector,
   useStoreContext,
 } from "./useContextSelector";
+import { ValidateActions } from "./ValidateActions";
+import { ActionMap, createStableActions } from "./createStableActions";
 
 type SelectorType<S, R> = (state: S) => R;
 
@@ -12,22 +14,12 @@ export type ReturnType<S, A> = {
   actions: A;
 };
 
-type ExtractControllerData<T> = T extends { state: infer S; actions: infer A }
+type ExtractControllerData<T> = T extends {
+  state: infer S;
+  actions: infer A extends ActionMap;
+}
   ? { state: S; actions: A }
   : never;
-
-const createStableActions = (actions: RefObject<any>, stableActions: any) => {
-  if (actions.current && !stableActions) {
-    const result: Record<string, Function> = {};
-    Object.keys(actions.current).map((key) => {
-      result[key] = (...args: any[]) =>
-        (actions.current?.[key] as CallableFunction)?.(...args);
-    });
-    return result;
-  } else {
-    return stableActions;
-  }
-};
 
 export function createProvider<
   ProviderProps,
@@ -37,7 +29,12 @@ export function createProvider<
     | null
     | undefined,
 >(
-  controller: (props: ProviderProps) => R,
+  controller: (
+    props: ProviderProps,
+  ) => R &
+    (R extends { actions: infer A }
+      ? { actions: ValidateActions<A> }
+      : unknown),
   defaultEqualityFn: (a: any, b: any) => boolean = Object.is,
 ) {
   type Data = ExtractControllerData<R>;
@@ -47,7 +44,7 @@ export function createProvider<
   const Context = createContext<{
     state: StateType;
     actions: ActionsType;
-  }>(null as any);
+  }>();
 
   const Provider: React.FC<React.PropsWithChildren<ProviderProps>> = ({
     children,
