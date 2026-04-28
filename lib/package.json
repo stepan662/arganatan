@@ -6,17 +6,21 @@
   "author": "",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
+  "browser": "./dist/index.esm.min.js",
+  "unpkg": "./dist/index.esm.min.js",
+  "jsdelivr": "./dist/index.esm.min.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.esm.js",
       "require": "./dist/index.cjs.js",
+      "browser": "./dist/index.esm.min.js",
       "types": "./dist/index.d.ts"
     }
   },
   "files": ["dist"],
   "scripts": {
-    "build": "rollup -c ../rollup.config.js",
+    "build": "rollup -c ../../rollup.config.js",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "peerDependencies": {

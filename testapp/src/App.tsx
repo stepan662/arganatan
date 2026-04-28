@@ -1,5 +1,5 @@
 import React from "react";
-import { createProvider } from "arganatan";
+import { createProvider, shallow } from "arganatan";
 
 const [CounterProvider, useCounterActions, useCounterState] = createProvider(
   () => {
@@ -12,6 +12,9 @@ const [CounterProvider, useCounterActions, useCounterState] = createProvider(
       decrement() {
         setState((prev) => ({ count: prev.count - 1 }));
       },
+      pointless() {
+        setState((prev) => ({ count: prev.count }));
+      },
     };
 
     return {
@@ -22,15 +25,17 @@ const [CounterProvider, useCounterActions, useCounterState] = createProvider(
 );
 
 function Counter() {
-  const count = useCounterState((state) => state.count);
-  const { increment, decrement } = useCounterActions();
+  const state = useCounterState((state) => state);
+  const { increment, decrement, pointless } = useCounterActions();
 
+  console.log("Counter rendered");
   return (
     <div style={{ display: "grid", gap: 12, maxWidth: 320 }}>
-      <div style={{ fontSize: 18, fontWeight: 600 }}>Count: {count}</div>
+      <div style={{ fontSize: 18, fontWeight: 600 }}>Count: {state.count}</div>
       <div style={{ display: "flex", gap: 8 }}>
         <button onClick={decrement}>-</button>
         <button onClick={increment}>+</button>
+        <button onClick={pointless}>pointless</button>
       </div>
     </div>
   );

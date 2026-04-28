@@ -36,7 +36,10 @@ export function createProvider<
     | React.ReactElement
     | null
     | undefined,
->(controller: (props: ProviderProps) => R) {
+>(
+  controller: (props: ProviderProps) => R,
+  defaultEqualityFn: (a: any, b: any) => boolean = Object.is,
+) {
   type Data = ExtractControllerData<R>;
   type StateType = Data["state"];
   type ActionsType = Data["actions"];
@@ -85,8 +88,26 @@ export function createProvider<
 
   const useStateContext = function <SelectorReturn>(
     selector: SelectorType<StateType, SelectorReturn>,
+    equalityFn: (a: any, b: any) => boolean = defaultEqualityFn,
   ) {
-    return useContextSelector(Context, (value) => selector(value.state));
+    const prevValue = React.useRef<SelectorReturn>();
+
+    const stableSelector = React.useCallback(
+      (contextValue: any) => {
+        const state = contextValue.state;
+        const newValue = selector(state);
+
+        if (equalityFn(prevValue.current, newValue)) {
+          return prevValue.current as SelectorReturn;
+        }
+
+        prevValue.current = newValue;
+        return newValue;
+      },
+      [selector, equalityFn],
+    );
+
+    return useContextSelector(Context, stableSelector);
   };
 
   return [Provider, useActions, useStateContext] as const;
