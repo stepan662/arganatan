@@ -1,8 +1,8 @@
-import React, { RefObject, useRef } from "react";
+import React, { RefObject, useContext, useRef } from "react";
 import {
   createContext,
-  useContextNoSubscribe,
   useContextSelector,
+  useStoreContext,
 } from "./useContextSelector";
 
 type SelectorType<StateType, ReturnType> = (state: StateType) => ReturnType;
@@ -20,6 +20,11 @@ const createStableActions = (actions: RefObject<any>, stableActions: any) => {
   }
 };
 
+export type ReturnType<S, A> = {
+  state: S;
+  actions: A;
+};
+
 export const createProvider = <
   StateType,
   Actions,
@@ -27,21 +32,22 @@ export const createProvider = <
 >(
   controller: (
     props: ProviderProps,
-  ) => [state: StateType, actions: Actions] | undefined | null | JSX.Element,
+  ) => ReturnType<StateType, Actions> | undefined | null | JSX.Element,
 ) => {
-  const Context = createContext<[StateType, Actions]>(null as any);
+  const Context = createContext<ReturnType<StateType, Actions>>(null as any);
 
   const Provider: React.FC<ProviderProps> = ({ children, ...props }) => {
     const result = controller(props as any);
-    const resultIsArray = Array.isArray(result);
-
-    const [state, _actions] = resultIsArray ? result : [];
-    const actionsRef = useRef(_actions as Actions | undefined);
-    const stableActionsRef = useRef(undefined as Actions | undefined);
-
-    if (!resultIsArray) {
+    const state =
+      (result as Partial<ReturnType<StateType, Actions>>)?.state || undefined;
+    const _actions =
+      (result as Partial<ReturnType<StateType, Actions>>)?.actions || undefined;
+    if (!state || !_actions) {
       return <>{result}</>;
     }
+
+    const actionsRef = useRef(_actions as Actions | undefined);
+    const stableActionsRef = useRef(undefined as Actions | undefined);
 
     actionsRef.current = _actions;
 
@@ -51,20 +57,21 @@ export const createProvider = <
       stableActionsRef.current,
     );
 
+    const actions = actionsRef.current;
+
     return (
-      <Context.Provider value={[state!, stableActionsRef.current!]}>
-        {children}
-      </Context.Provider>
+      <Context.Provider value={{ state, actions }}>{children}</Context.Provider>
     );
   };
 
   const useActions = () => {
-    return useContextNoSubscribe(Context)[1];
+    return useStoreContext(Context).value.actions;
   };
+
   const useStateContext = function <SelectorReturn>(
     selector: SelectorType<StateType, SelectorReturn>,
   ) {
-    return useContextSelector(Context, (value) => selector(value[0]));
+    return useContextSelector(Context, (value) => selector(value.state));
   };
 
   return [Provider, useActions, useStateContext] as const;

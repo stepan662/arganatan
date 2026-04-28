@@ -17,7 +17,7 @@ export default {
       tsconfig: path.resolve(__dirname, "lib/tsconfig.json"),
       declaration: true,
       declarationDir: path.resolve(__dirname, "lib/dist"),
-      rootDir: path.resolve(__dirname, "lib"),
+      rootDir: path.resolve(__dirname, "lib/src"),
       sourceMap: true,
       jsx: "react-jsx",
     }),

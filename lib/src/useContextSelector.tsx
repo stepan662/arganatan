@@ -61,7 +61,7 @@ export function useContextSelector<T, X>(
   return useSyncExternalStore(store.subscribe, () => selector(store.value));
 }
 
-export function useContextNoSubscribe<T>(context: StoreContext<T>) {
+export function useStoreContext<T>(context: StoreContext<T>): Store<T> {
   const store = useContextOrig(context as React.Context<Store<T>>);
-  return store.value;
+  return store;
 }

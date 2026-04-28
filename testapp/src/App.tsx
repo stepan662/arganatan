@@ -5,21 +5,19 @@ const [CounterProvider, useCounterActions, useCounterState] = createProvider(
   () => {
     const [state, setState] = React.useState({ count: 0 });
 
-    function increment() {
-      setState((prev) => ({ count: prev.count + 1 }));
-    }
-
-    function decrement() {
-      setState((prev) => ({ count: prev.count - 1 }));
-    }
-
-    return [
-      state,
-      {
-        increment,
-        decrement,
+    const actions = {
+      increment() {
+        setState((prev) => ({ count: prev.count + 1 }));
       },
-    ] as const;
+      decrement() {
+        setState((prev) => ({ count: prev.count - 1 }));
+      },
+    };
+
+    return {
+      state,
+      actions,
+    };
   },
 );
 

@@ -42,7 +42,7 @@ importers:
         specifier: ^5.4.0
         version: 5.4.21(@types/node@20.19.39)
 
-  lib/src:
+  lib:
     dependencies:
       react:
         specifier: ^18.0.0 || ^19.0.0
@@ -55,7 +55,7 @@ importers:
     dependencies:
       arganatan:
         specifier: workspace:*
-        version: link:../lib/src
+        version: link:../lib
       react:
         specifier: ^18.3.0
         version: 18.3.1
