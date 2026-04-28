@@ -23,14 +23,14 @@ const [CounterProvider, useCounterActions, useCounterState] = createProvider(
 
 function Counter() {
   const count = useCounterState((state) => state.count);
-  const actions = useCounterActions();
+  const { increment, decrement } = useCounterActions();
 
   return (
     <div style={{ display: "grid", gap: 12, maxWidth: 320 }}>
       <div style={{ fontSize: 18, fontWeight: 600 }}>Count: {count}</div>
       <div style={{ display: "flex", gap: 8 }}>
-        <button onClick={actions.decrement}>-</button>
-        <button onClick={actions.increment}>+</button>
+        <button onClick={decrement}>-</button>
+        <button onClick={increment}>+</button>
       </div>
     </div>
   );

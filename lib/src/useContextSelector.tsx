@@ -1,6 +1,7 @@
 import {
   createContext as createContextOrig,
   useContext as useContextOrig,
+  useDebugValue,
   useEffect,
   useRef,
   useSyncExternalStore,
@@ -58,7 +59,11 @@ export function useContextSelector<T, X>(
   selector: (value: T) => X,
 ) {
   const store = useContextOrig(context as React.Context<Store<T>>);
-  return useSyncExternalStore(store.subscribe, () => selector(store.value));
+  const selected = useSyncExternalStore(store.subscribe, () =>
+    selector(store.value),
+  );
+  useDebugValue("ArganatanSelector");
+  return selected;
 }
 
 export function useStoreContext<T>(context: StoreContext<T>): Store<T> {
