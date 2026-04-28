@@ -25,7 +25,7 @@ const [CounterProvider, useCounterActions, useCounterState] = createProvider(
 );
 
 function Counter() {
-  const state = useCounterState((state) => state);
+  const state = useCounterState((state) => state, shallow);
   const { increment, decrement, pointless } = useCounterActions();
 
   console.log("Counter rendered");
