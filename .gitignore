@@ -1,0 +1,42 @@
+# Node dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+lib/src/dist/
+testapp/dist/
+
+# TypeScript
+*.tsbuildinfo
+
+# Local environment files
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE/editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Vite / Rollup / cache
+.vite/
+.cache/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Misc
+dist/
+*.log
