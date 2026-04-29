@@ -9,6 +9,7 @@ function useSyncExternalStorePolyfill<S>(
   getSnapshot: () => S,
 ): S {
   const [state, setState] = useState(getSnapshot);
+  const prevStateRef = React.useRef(state);
 
   useIsomorphicLayoutEffect(() => {
     let active = true;
@@ -16,10 +17,10 @@ function useSyncExternalStorePolyfill<S>(
     const checkUpdate = () => {
       if (!active) return;
       const nextState = getSnapshot();
-      // Only trigger a re-render if the snapshot actually changed
-      setState((prevState) =>
-        Object.is(prevState, nextState) ? prevState : nextState,
-      );
+      if (!Object.is(prevStateRef.current, nextState)) {
+        prevStateRef.current = nextState;
+        setState(nextState);
+      }
     };
 
     const unsubscribe = subscribe(checkUpdate);
