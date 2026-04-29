@@ -1,2 +1,6 @@
-export { createProvider, type ReturnType } from "./arganatan";
+export {
+  createProvider,
+  type ReturnType,
+  type EqualityFn,
+} from "./createProvider";
 export { shallow } from "./shallow";

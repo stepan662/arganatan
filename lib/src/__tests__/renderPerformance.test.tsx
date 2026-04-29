@@ -1,7 +1,7 @@
 import React, { act } from "react";
 import { describe, test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { createProvider } from "../arganatan";
+import { createProvider } from "../createProvider";
 
 describe("render performance", () => {
   test("no unnecessary re-renders on unrelated state change", () => {

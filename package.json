@@ -7,7 +7,7 @@
   "scripts": {
     "build": "corepack pnpm --filter arganatan build",
     "dev": "corepack pnpm --filter testapp dev",
-    "testapp": "corepack pnpm --filter testapp dev",
+    "test": "corepack pnpm --filter arganatan test",
     "typecheck": "corepack pnpm --filter arganatan typecheck"
   },
   "devDependencies": {

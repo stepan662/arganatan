@@ -1,4 +1,4 @@
-import React, { RefObject, useDebugValue, useRef } from "react";
+import React, { useRef } from "react";
 import {
   createContext,
   useContextSelector,
@@ -13,6 +13,8 @@ export type ReturnType<S, A> = {
   state: S;
   actions: A;
 };
+
+export type EqualityFn = (a: any, b: any) => boolean;
 
 type ExtractControllerData<T> = T extends {
   state: infer S;
@@ -35,7 +37,7 @@ export function createProvider<
     (R extends { actions: infer A }
       ? { actions: ValidateActions<A> }
       : unknown),
-  defaultEqualityFn: (a: any, b: any) => boolean = Object.is,
+  defaultEqualityFn: EqualityFn = Object.is,
 ) {
   type Data = ExtractControllerData<R>;
   type StateType = Data["state"];
@@ -51,30 +53,29 @@ export function createProvider<
     ...props
   }) => {
     const result = controller(props as any);
+
+    if (React.isValidElement(result) || result === null) {
+      return <>{result}</>;
+    }
+
     const state =
       (result as Partial<ReturnType<StateType, ActionsType>>)?.state ||
       undefined;
     const _actions =
       (result as Partial<ReturnType<StateType, ActionsType>>)?.actions ||
       undefined;
-    if (!state || !_actions) {
-      return <>{result}</>;
-    }
 
     const actionsRef = useRef(_actions as ActionsType | undefined);
-    const stableActionsRef = useRef(undefined as ActionsType | undefined);
+    const cachedStableActions = useRef(undefined as ActionsType | undefined);
 
     actionsRef.current = _actions;
 
     // stable actions
-    stableActionsRef.current = createStableActions(
-      actionsRef,
-      stableActionsRef.current,
-    );
+    if (!cachedStableActions.current) {
+      cachedStableActions.current = createStableActions(actionsRef);
+    }
 
-    const actions = actionsRef.current;
-
-    const value = { state, actions };
+    const value = { state, actions: cachedStableActions.current };
 
     return <Context.Provider value={value}>{children}</Context.Provider>;
   };
@@ -85,7 +86,7 @@ export function createProvider<
 
   const useStateContext = function <SelectorReturn>(
     selector: SelectorType<StateType, SelectorReturn>,
-    equalityFn: (a: any, b: any) => boolean = defaultEqualityFn,
+    equalityFn: EqualityFn = defaultEqualityFn,
   ) {
     const prevValue = React.useRef<SelectorReturn>();
 

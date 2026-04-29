@@ -6,10 +6,10 @@ export type ActionMap = {
 
 export function createStableActions<A extends ActionMap>(
   actionsRef: RefObject<A | undefined>,
-  cachedStableActions: A | undefined,
 ): A | undefined {
-  if (cachedStableActions || !actionsRef.current) return cachedStableActions;
-
+  if (!actionsRef.current) {
+    return actionsRef.current ?? undefined;
+  }
   const wrap = (currentObj: ActionMap, path: string[] = []): ActionMap => {
     const stableNode: ActionMap = {};
 
@@ -42,5 +42,5 @@ export function createStableActions<A extends ActionMap>(
     return stableNode as A;
   };
 
-  return wrap(actionsRef.current) as A;
+  return wrap(actionsRef.current!) as A;
 }
