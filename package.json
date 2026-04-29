@@ -7,7 +7,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "dev": "pnpm --filter testapp19 dev",
-    "test": "pnpm --filter arganatan test",
+    "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
     "clean": "node ./scripts/clean.js"
   },

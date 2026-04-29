@@ -1,6 +1,6 @@
-import React, { act } from "react";
+import React from "react";
 import { describe, test, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@test-utils";
 import { createProvider } from "../createProvider";
 import { shallow } from "../shallow";
 
