@@ -56,10 +56,6 @@ export function createProvider<
   }: PropsWithChildren<ProviderProps>): React.ReactElement | null => {
     const result = controller(props as any);
 
-    if (React.isValidElement(result) || result === null) {
-      return <>{result}</>;
-    }
-
     const state =
       (result as Partial<ReturnType<StateType, ActionsType>>)?.state ||
       undefined;
@@ -71,6 +67,10 @@ export function createProvider<
     const cachedStableActions = useRef(undefined as ActionsType | undefined);
 
     actionsRef.current = _actions;
+
+    if (React.isValidElement(result) || result === null) {
+      return result;
+    }
 
     // stable actions
     if (!cachedStableActions.current) {

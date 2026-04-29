@@ -265,4 +265,43 @@ describe("createProvider", () => {
     expect(screen.queryByText("Test component")).toBeFalsy();
     expect(renderCount).toBe(0);
   });
+
+  test("switches from loading to context", () => {
+    const [Provider, useActions] = createProvider(() => {
+      const [loading, setLoading] = useState(false);
+
+      const toggleLoading = () => setLoading((prev) => !prev);
+
+      if (loading) {
+        return <button onClick={toggleLoading}>Loading... Stop</button>;
+      }
+
+      return {
+        state: { loading },
+        actions: { toggleLoading },
+      };
+    });
+
+    const TestComponent = () => {
+      const { toggleLoading } = useActions();
+      return <button onClick={toggleLoading}>Start loading</button>;
+    };
+
+    render(
+      <Provider>
+        <TestComponent />
+      </Provider>,
+    );
+
+    expect(screen.queryByText("Start loading")).toBeTruthy();
+    act(() => {
+      screen.getByText("Start loading").click();
+    });
+    expect(screen.getByText("Loading... Stop")).toBeTruthy();
+
+    act(() => {
+      screen.getByText("Loading... Stop").click();
+    });
+    expect(screen.getByText("Start loading")).toBeTruthy();
+  });
 });
