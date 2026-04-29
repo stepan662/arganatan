@@ -83,7 +83,7 @@ export function createProvider<
   };
 
   const useActions = () => {
-    return useStoreContext(Context).value.actions;
+    return useStoreContext(Context)?.value?.actions;
   };
 
   const useStateContext = function <SelectorReturn>(
@@ -94,7 +94,7 @@ export function createProvider<
 
     const stableSelector = React.useCallback(
       (contextValue: any) => {
-        const state = contextValue.state;
+        const state = contextValue?.state;
         const newValue = selector(state);
 
         if (equalityFn(prevValue.current, newValue)) {

@@ -55,13 +55,16 @@ export function createContext<T>(): StoreContext<T> {
   return context as StoreContext<T>;
 }
 
+const dummySubscribe = () => () => {};
+
 export function useContextSelector<T, X>(
   context: StoreContext<T>,
   selector: (value: T) => X,
 ) {
   const store = useContextOrig(context as React.Context<Store<T>>);
-  const selected = useSyncExternalStore(store.subscribe, () =>
-    selector(store.value),
+  const selected = useSyncExternalStore(
+    store?.subscribe ?? dummySubscribe,
+    () => selector(store?.value),
   );
   useDebugValue("ArganatanSelector");
   return selected;

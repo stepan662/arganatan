@@ -304,4 +304,56 @@ describe("createProvider", () => {
     });
     expect(screen.getByText("Start loading")).toBeTruthy();
   });
+
+  test("useStateContext won't fail without provider", () => {
+    const [Provider, useActions, useStateContext] = createProvider(() => {
+      const [loading, setLoading] = useState(false);
+
+      const toggleLoading = () => setLoading((prev) => !prev);
+
+      if (loading) {
+        return <button onClick={toggleLoading}>Loading... Stop</button>;
+      }
+
+      return {
+        state: { loading },
+        actions: { toggleLoading },
+      };
+    });
+
+    const TestComponent = () => {
+      const state = useStateContext((s) => s);
+      return <button>State: "{`${state}`}"</button>;
+    };
+
+    render(<TestComponent />);
+
+    expect(screen.queryByText('State: "undefined"')).toBeTruthy();
+  });
+
+  test("useStateActions won't fail without provider", () => {
+    const [Provider, useActions] = createProvider(() => {
+      const [loading, setLoading] = useState(false);
+
+      const toggleLoading = () => setLoading((prev) => !prev);
+
+      if (loading) {
+        return <button onClick={toggleLoading}>Loading... Stop</button>;
+      }
+
+      return {
+        state: { loading },
+        actions: { toggleLoading },
+      };
+    });
+
+    const TestComponent = () => {
+      const actions = useActions();
+      return <button>Actions: "{`${actions}`}"</button>;
+    };
+
+    render(<TestComponent />);
+
+    expect(screen.queryByText('Actions: "undefined"')).toBeTruthy();
+  });
 });
