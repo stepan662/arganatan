@@ -29,7 +29,7 @@ jobs:
         run: pnpm --filter arganatan build
 
       - name: Set prerelease version
-        working-directory: lib/src
+        working-directory: lib
         run: |
           BASE_VERSION=$(node -p "require('./package.json').version")
           SHORT_SHA=$(git rev-parse --short HEAD)
@@ -38,7 +38,7 @@ jobs:
           echo "PRERELEASE_VERSION=$PRERELEASE_VERSION" >> "$GITHUB_ENV"
 
       - name: Publish to npm
-        working-directory: lib/src
+        working-directory: lib
         run: pnpm publish --tag prerelease --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
