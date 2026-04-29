@@ -8,7 +8,6 @@
     "noEmit": false,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
     "paths": {
       "@test-utils": ["./src/__tests__/test-utils.ts"]
     }
