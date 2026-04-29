@@ -81,6 +81,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Build library package
+        run: pnpm --filter arganatan build
+
       - name: Typecheck library
         run: pnpm --filter arganatan typecheck
 
