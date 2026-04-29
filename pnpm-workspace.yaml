@@ -1,4 +1,5 @@
 packages:
   - lib
+  - testapp16
   - testapp17
   - testapp19

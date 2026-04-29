@@ -2,7 +2,7 @@ import { rmSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = resolve(".");
-const workspaces = ["lib", "testapp17", "testapp19"];
+const workspaces = ["lib", "testapp19", "testapp17", "testapp16"];
 
 function remove(target) {
   const path = resolve(root, target);
