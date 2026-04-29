@@ -1,0 +1,47 @@
+name: Publish prerelease
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    name: Publish prerelease to npm
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build library
+        run: pnpm --filter arganatan build
+
+      - name: Set prerelease version
+        working-directory: lib/src
+        run: |
+          BASE_VERSION=$(node -p "require('./package.json').version")
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          PRERELEASE_VERSION="${BASE_VERSION}-prerelease.${SHORT_SHA}"
+          npm version "$PRERELEASE_VERSION" --no-git-tag-version
+          echo "PRERELEASE_VERSION=$PRERELEASE_VERSION" >> "$GITHUB_ENV"
+
+      - name: Publish to npm
+        working-directory: lib/src
+        run: pnpm publish --tag prerelease --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Summary
+        run: echo "Published **arganatan@$PRERELEASE_VERSION** under the \`prerelease\` tag." >> "$GITHUB_STEP_SUMMARY"

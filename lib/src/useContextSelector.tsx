@@ -4,8 +4,9 @@ import {
   useDebugValue,
   useEffect,
   useRef,
-  useSyncExternalStore,
 } from "react";
+
+import { useSyncExternalStore } from "./useSyncExternalStorePolyfill";
 
 type Store<T> = {
   value: T;
