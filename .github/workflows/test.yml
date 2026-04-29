@@ -32,13 +32,13 @@ jobs:
           version: 10
 
       - name: Install dependencies
-        run: corepack pnpm install
+        run: pnpm install
 
       - name: Build library package
-        run: corepack pnpm --filter arganatan build
+        run: pnpm --filter arganatan build
 
       - name: Build testapp
-        run: corepack pnpm --filter testapp build
+        run: pnpm --filter testapp build
 
   test:
     name: Run library tests
@@ -61,10 +61,10 @@ jobs:
           version: 10   
 
       - name: Install dependencies
-        run: corepack pnpm install
+        run: pnpm install
 
       - name: Run library tests
-        run: corepack pnpm --filter arganatan test
+        run: pnpm --filter arganatan test
 
   typecheck:
     name: Typecheck packages
@@ -87,10 +87,10 @@ jobs:
           version: 10
 
       - name: Install dependencies
-        run: corepack pnpm install
+        run: pnpm install
 
       - name: Typecheck library
-        run: corepack pnpm --filter arganatan typecheck
+        run: pnpm --filter arganatan typecheck
 
       - name: Typecheck testapp
-        run: corepack pnpm --filter testapp typecheck
+        run: pnpm --filter testapp typecheck
