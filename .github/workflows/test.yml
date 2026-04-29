@@ -32,11 +32,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build library package
-        run: pnpm --filter arganatan build
-
-      - name: Build testapp
-        run: pnpm --filter testapp build
+      - name: Build library and testapps
+        run: pnpm build
 
   test:
     name: Run library tests
@@ -58,8 +55,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run library tests
-        run: pnpm --filter arganatan test
+      - name: Run tests
+        run: pnpm test
 
   typecheck:
     name: Typecheck packages
@@ -81,11 +78,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build library package
-        run: pnpm --filter arganatan build
-
-      - name: Typecheck library
-        run: pnpm --filter arganatan typecheck
+      - name: Build library
+        run: pnpm build
 
       - name: Typecheck testapp
-        run: pnpm --filter testapp typecheck
+        run: pnpm typecheck
