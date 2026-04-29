@@ -1,0 +1,96 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+      - '**/feature/**'
+      - '**/bugfix/**'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    name: Build packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: corepack pnpm install
+
+      - name: Build library package
+        run: corepack pnpm --filter arganatan build
+
+      - name: Build testapp
+        run: corepack pnpm --filter testapp build
+
+  test:
+    name: Run library tests
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10   
+
+      - name: Install dependencies
+        run: corepack pnpm install
+
+      - name: Run library tests
+        run: corepack pnpm --filter arganatan test
+
+  typecheck:
+    name: Typecheck packages
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: corepack pnpm install
+
+      - name: Typecheck library
+        run: corepack pnpm --filter arganatan typecheck
+
+      - name: Typecheck testapp
+        run: corepack pnpm --filter testapp typecheck
