@@ -2,6 +2,7 @@ import React, { act } from "react";
 import { describe, test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { createProvider } from "../createProvider";
+import { shallow } from "../shallow";
 
 describe("render performance", () => {
   test("no unnecessary re-renders on unrelated state change", () => {
@@ -142,5 +143,74 @@ describe("render performance", () => {
     });
 
     expect(stableRef).toBe(firstActions);
+  });
+
+  test("uses shallow equality to avoid rerenders for unchanged selected object values", () => {
+    let counterOneRenders = 0;
+    let counterTwoRenders = 0;
+
+    const [Provider, useActions, useStateContext] = createProvider(() => {
+      const [counterOne, setCounterOne] = React.useState(0);
+      const [counterTwo, setCounterTwo] = React.useState(0);
+
+      return {
+        state: { counterOne, counterTwo },
+        actions: {
+          incrementCounterOne: () => setCounterOne((prev) => prev + 1),
+          incrementCounterTwo: () => setCounterTwo((prev) => prev + 1),
+        },
+      };
+    });
+
+    const CounterOne = () => {
+      counterOneRenders++;
+      const selected = useStateContext(
+        (s) => ({ count: s.counterOne }),
+        shallow,
+      );
+      const { incrementCounterOne } = useActions();
+      return (
+        <div>
+          <div>Counter One: {selected.count}</div>
+          <button onClick={() => incrementCounterOne()}>
+            Update counter one
+          </button>
+        </div>
+      );
+    };
+
+    const CounterTwo = () => {
+      counterTwoRenders++;
+      const selected = useStateContext(
+        (s) => ({ count: s.counterTwo }),
+        shallow,
+      );
+      const { incrementCounterTwo } = useActions();
+      return (
+        <div>
+          <div>Counter Two: {selected.count}</div>
+          <button onClick={() => incrementCounterTwo()}>
+            Update counter two
+          </button>
+        </div>
+      );
+    };
+
+    render(
+      <Provider>
+        <CounterOne />
+        <CounterTwo />
+      </Provider>,
+    );
+
+    expect(counterOneRenders).toBe(1);
+    expect(counterTwoRenders).toBe(1);
+
+    act(() => {
+      screen.getByText("Update counter one").click();
+    });
+
+    expect(counterOneRenders).toBe(2);
+    expect(counterTwoRenders).toBe(1);
   });
 });
