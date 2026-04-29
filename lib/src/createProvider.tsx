@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { ReactNode, useRef } from "react";
 import {
   createContext,
   useContextSelector,
@@ -15,6 +15,8 @@ export type ReturnType<S, A> = {
 };
 
 export type EqualityFn = (a: any, b: any) => boolean;
+
+type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
 
 type ExtractControllerData<T> = T extends {
   state: infer S;
@@ -48,10 +50,10 @@ export function createProvider<
     actions: ActionsType;
   }>();
 
-  const Provider: React.FC<React.PropsWithChildren<ProviderProps>> = ({
+  const Provider = ({
     children,
     ...props
-  }) => {
+  }: PropsWithChildren<ProviderProps>): React.ReactElement | null => {
     const result = controller(props as any);
 
     if (React.isValidElement(result) || result === null) {
