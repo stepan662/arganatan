@@ -37,5 +37,8 @@ npm version "$PRERELEASE_VERSION" --no-git-tag-version
 echo "==> Publishing arganatan@$PRERELEASE_VERSION with tag 'prerelease'..."
 pnpm publish --tag prerelease --no-git-checks
 
+echo "==> Reverting lib/package.json..."
+git -C "$ROOT_DIR" checkout -- lib/package.json
+
 echo ""
 echo "Published arganatan@$PRERELEASE_VERSION under the 'prerelease' tag."
