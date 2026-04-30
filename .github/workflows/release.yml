@@ -55,7 +55,7 @@ jobs:
 
       - name: Copy docs to package
         if: steps.pre_release.outputs.version != steps.post_release.outputs.version
-        run: cp LICENSE CHANGELOG.md lib/
+        run: cp README.md LICENSE CHANGELOG.md lib/
 
       - name: Publish to npm
         if: steps.pre_release.outputs.version != steps.post_release.outputs.version
