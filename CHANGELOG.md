@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/stepan662/arganatan/compare/v1.0.3...v1.0.4) (2026-04-30)
+
+
+### Bug Fixes
+
+* bug with outdated actions ([7bd232e](https://github.com/stepan662/arganatan/commit/7bd232e4de4e66825225b9b9aff1a186c80f42b2))
+
 ## [1.0.3](https://github.com/stepan662/arganatan/compare/v1.0.2...v1.0.3) (2026-04-30)
 
 
