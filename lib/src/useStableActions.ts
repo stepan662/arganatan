@@ -1,12 +1,12 @@
-import { RefObject } from "react";
+import { RefObject, useRef } from "react";
 
 export type ActionMap = {
   [key: string]: ((...args: any[]) => any) | ActionMap;
 };
 
-export function createStableActions<A extends ActionMap>(
-  actionsRef: RefObject<A | undefined>,
-): A | undefined {
+export function createStableActions<
+  A extends NonNullable<ActionMap> | undefined,
+>(actionsRef: RefObject<A | undefined>): A | undefined {
   if (!actionsRef.current) {
     return actionsRef.current ?? undefined;
   }
@@ -39,8 +39,22 @@ export function createStableActions<A extends ActionMap>(
       }
     });
 
-    return stableNode as A;
+    return stableNode!;
   };
 
   return wrap(actionsRef.current!) as A;
+}
+
+export function useStableActions<A extends NonNullable<ActionMap> | undefined>(
+  actions: A,
+): A {
+  const currentActionsRef = useRef(actions);
+  const stableActionsRef = useRef<A>();
+
+  // stable actions
+  if (!stableActionsRef.current) {
+    stableActionsRef.current = createStableActions(currentActionsRef);
+  }
+
+  return stableActionsRef.current!;
 }

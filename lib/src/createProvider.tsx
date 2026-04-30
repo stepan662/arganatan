@@ -5,7 +5,7 @@ import {
   useStoreContext,
 } from "./useContextSelector";
 import { ValidateActions } from "./ValidateActions";
-import { ActionMap, createStableActions } from "./createStableActions";
+import { ActionMap, useStableActions } from "./useStableActions";
 
 type SelectorType<S, R> = (state: S) => R;
 
@@ -63,21 +63,13 @@ export function createProvider<
       (result as Partial<ReturnType<StateType, ActionsType>>)?.actions ||
       undefined;
 
-    const actionsRef = useRef(_actions as ActionsType | undefined);
-    const cachedStableActions = useRef(undefined as ActionsType | undefined);
-
-    actionsRef.current = _actions;
+    const actions = useStableActions(_actions);
 
     if (React.isValidElement(result) || result === null) {
       return result;
     }
 
-    // stable actions
-    if (!cachedStableActions.current) {
-      cachedStableActions.current = createStableActions(actionsRef);
-    }
-
-    const value = { state, actions: cachedStableActions.current };
+    const value = { state, actions };
 
     return <Context.Provider value={value}>{children}</Context.Provider>;
   };
