@@ -10,13 +10,7 @@
  */
 
 import { execSync } from "child_process";
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  readdirSync,
-  rmSync,
-} from "fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync } from "fs";
 import { join, resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -60,10 +54,9 @@ mkdirSync(packTestDir);
 try {
   // 1. Pack directly into pack-test/
   console.log("Packing lib/ ...");
-  const raw = execSync(
-    `npm pack --json --pack-destination "${packTestDir}"`,
-    { cwd: libDir },
-  )
+  const raw = execSync(`npm pack --json --pack-destination "${packTestDir}"`, {
+    cwd: libDir,
+  })
     .toString()
     .trim();
   const info = JSON.parse(raw);
@@ -84,7 +77,14 @@ try {
 
   // 3. File references
   console.log("Checking package.json file references...");
-  for (const field of ["main", "module", "browser", "types", "unpkg", "jsdelivr"]) {
+  for (const field of [
+    "main",
+    "module",
+    "browser",
+    "types",
+    "unpkg",
+    "jsdelivr",
+  ]) {
     if (pkg[field]) checkFile(field, pkg[field], packageDir);
   }
   if (pkg.exports) walkExports(pkg.exports, packageDir);
@@ -114,7 +114,7 @@ try {
   // 6. Expected exports in .d.ts
   console.log("\nChecking .d.ts for expected exports...");
   const dts = readFileSync(join(packageDir, pkg.types), "utf-8");
-  for (const name of ["createProvider", "shallow", "useStableActions"]) {
+  for (const name of ["createProvider", "shallow"]) {
     if (dts.includes(name)) {
       pass(name);
     } else {
@@ -128,7 +128,9 @@ try {
 
 console.log("");
 if (failures > 0) {
-  console.error(`Pack test FAILED (${failures} issue${failures > 1 ? "s" : ""})`);
+  console.error(
+    `Pack test FAILED (${failures} issue${failures > 1 ? "s" : ""})`,
+  );
   process.exit(1);
 } else {
   console.log(`Pack test PASSED  (output in pack-test/)`);

@@ -25,6 +25,22 @@ type ExtractControllerData<T> = T extends {
   ? { state: S; actions: A }
   : never;
 
+/**
+ * Creates a React context provider with selector-based subscriptions.
+ *
+ * The `controller` is a hook-like function that receives the provider's props
+ * and returns `{ state, actions }`. It may also return a React element (or
+ * `null`/`undefined`) to act as a pure render gate — in that case no context
+ * is provided and the element is rendered as-is.
+ *
+ * Returns a tuple of three values:
+ * - `Provider` — the React component that wraps your tree and supplies context.
+ * - `useActions` — a hook that returns the stable actions object.
+ * - `useStateContext` — a hook that accepts a selector and an optional equality
+ *   function, and re-renders the consumer only when the selected slice changes.
+ *
+ * @param controller - Hook that receives provider props and returns `{ state, actions }`.
+ */
 export function createProvider<
   ProviderProps,
   R extends
@@ -39,7 +55,6 @@ export function createProvider<
     (R extends { actions: infer A }
       ? { actions: ValidateActions<A> }
       : unknown),
-  defaultEqualityFn: EqualityFn = Object.is,
 ) {
   type Data = ExtractControllerData<R>;
   type StateType = Data["state"];
@@ -80,7 +95,7 @@ export function createProvider<
 
   const useStateContext = function <SelectorReturn>(
     selector: SelectorType<StateType, SelectorReturn>,
-    equalityFn: EqualityFn = defaultEqualityFn,
+    equalityFn: EqualityFn = Object.is,
   ) {
     const prevValue = React.useRef<SelectorReturn>();
 

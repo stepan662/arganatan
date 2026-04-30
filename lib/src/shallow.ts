@@ -47,6 +47,17 @@ const compareIterables = (
   return !!nextA.done && !!nextB.done;
 };
 
+/**
+ * Performs a shallow equality comparison between two values.
+ *
+ * Primitives are compared with `Object.is`. For objects it checks one level
+ * deep: plain objects and Map/Set-like iterables compare entries, ordered
+ * iterables (e.g. arrays) compare items by position. Values of different
+ * prototypes are always considered unequal.
+ *
+ * Useful as an `equalityFn` for `useStateContext` when your selector returns a
+ * new object/array each render but its contents haven't changed.
+ */
 export function shallow<T>(valueA: T, valueB: T): boolean {
   if (Object.is(valueA, valueB)) {
     return true;
