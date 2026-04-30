@@ -1,11 +1,11 @@
 {
-  "name": "arganatan",
+  "name": "react-arven",
   "version": "1.1.1",
   "description": "A React provider helper with stable actions for context-based state.",
   "license": "MIT",
   "author": "Stepan Granat <stepan.granat@gmail.com>",
   "repository": {
-    "url": "https://github.com/stepan662/arganatan"
+    "url": "https://github.com/stepan662/react-arven"
   },
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
