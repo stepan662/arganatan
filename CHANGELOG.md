@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/stepan662/arganatan/compare/v1.1.0...v1.1.1) (2026-04-30)
+
+
+### Bug Fixes
+
+* update release setup ([#1](https://github.com/stepan662/arganatan/issues/1)) ([0779075](https://github.com/stepan662/arganatan/commit/0779075c0c4509d2ed4adb6b5fb4b988a0ecf4a7))
+
 # [1.1.0](https://github.com/stepan662/arganatan/compare/v1.0.5...v1.1.0) (2026-04-30)
 
 
