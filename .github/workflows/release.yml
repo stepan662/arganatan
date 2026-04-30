@@ -40,8 +40,20 @@ jobs:
       - name: Build library
         run: pnpm build
 
-      - name: Release
+      - name: Get version before release
+        id: pre_release
+        run: echo "version=$(node -p "require('./lib/package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
+
+      - name: Get version after release
+        id: post_release
+        run: echo "version=$(node -p "require('./lib/package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Publish to npm
+        if: steps.pre_release.outputs.version != steps.post_release.outputs.version
+        working-directory: lib
+        run: npm publish --provenance --access public

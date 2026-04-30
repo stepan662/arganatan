@@ -7,7 +7,8 @@
       "changelogFile": "CHANGELOG.md"
     }],
     ["@semantic-release/npm", {
-      "pkgRoot": "lib"
+      "pkgRoot": "lib",
+      "npmPublish": false
     }],
     ["@semantic-release/git", {
       "assets": ["CHANGELOG.md", "lib/package.json"],
