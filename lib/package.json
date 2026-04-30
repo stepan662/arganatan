@@ -1,6 +1,6 @@
 {
   "name": "react-arven",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A React provider helper with stable actions for context-based state.",
   "license": "MIT",
   "author": "Stepan Granat <stepan.granat@gmail.com>",

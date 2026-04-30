@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/stepan662/react-arven/compare/v1.1.1...v1.2.0) (2026-04-30)
+
+
+### Features
+
+* rename to react-arven ([#2](https://github.com/stepan662/react-arven/issues/2)) ([d973062](https://github.com/stepan662/react-arven/commit/d9730625e6d6245e0487cba1f79e6bc09d58ce8d))
+
 ## [1.1.1](https://github.com/stepan662/arganatan/compare/v1.1.0...v1.1.1) (2026-04-30)
 
 
