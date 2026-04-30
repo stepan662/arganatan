@@ -18,7 +18,9 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollup -c ../rollup.config.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
