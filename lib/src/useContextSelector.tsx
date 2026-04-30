@@ -66,7 +66,7 @@ export function useContextSelector<T, X>(
     store?.subscribe ?? dummySubscribe,
     () => selector(store?.value),
   );
-  useDebugValue("ArganatanSelector");
+  useDebugValue("arveSelector");
   return selected;
 }
 

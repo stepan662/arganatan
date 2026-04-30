@@ -81,7 +81,7 @@ importers:
 
   testapp16:
     dependencies:
-      arganatan:
+      arve:
         specifier: workspace:*
         version: link:../lib
       react:
@@ -121,7 +121,7 @@ importers:
 
   testapp17:
     dependencies:
-      arganatan:
+      arve:
         specifier: workspace:*
         version: link:../lib
       react:
@@ -161,7 +161,7 @@ importers:
 
   testapp19:
     dependencies:
-      arganatan:
+      arve:
         specifier: workspace:*
         version: link:../lib
       react:

@@ -1,5 +1,5 @@
 import React from "react";
-import { createProvider, shallow } from "arganatan";
+import { createProvider, shallow } from "arve";
 
 const [CounterProvider, useCounterActions, useCounterState] = createProvider(
   () => {
@@ -45,7 +45,7 @@ export default function App() {
   return (
     <CounterProvider>
       <div style={{ fontFamily: "system-ui, sans-serif", padding: 24 }}>
-        <h1>arganatan testapp</h1>
+        <h1>arve testapp</h1>
         <p>
           This app imports the package as a workspace dependency and uses its
           provider hook.

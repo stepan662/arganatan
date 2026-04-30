@@ -34,7 +34,7 @@ export function createStableActions<
         stableNode[key] = wrap(value as ActionMap, currentPath);
       } else {
         throw new Error(
-          `[arganatan] Invalid action at "${currentPath.join(".")}". Only functions/objects.`,
+          `[arve] Invalid action at "${currentPath.join(".")}". Only functions/objects.`,
         );
       }
     });

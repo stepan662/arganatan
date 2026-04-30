@@ -1,6 +1,6 @@
 type ERROR_ACTIONS_MUST_BE_FUNCTIONS_OR_OBJECTS =
-  "❌ Arganatan: Actions must be functions or objects";
-type ERROR_NO_ARRAYS = "❌ Arganatan: No arrays in actions";
+  "❌ arve: Actions must be functions or objects";
+type ERROR_NO_ARRAYS = "❌ arve: No arrays in actions";
 
 // Recursive validator
 export type ValidateActions<T> =
