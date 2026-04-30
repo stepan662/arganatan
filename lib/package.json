@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "A React provider helper with stable actions for context-based state.",
   "license": "ISC",
-  "author": "",
+  "author": "Stepan Granat <stepan.granat@gmail.com>",
+  "repository": {
+    "url": "https://github.com/stepan662/arganatan"
+  },
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
   "browser": "./dist/index.esm.min.js",
