@@ -9,7 +9,8 @@
     "dev": "pnpm --filter testapp19 dev",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
-    "clean": "node ./scripts/clean.js"
+    "clean": "node ./scripts/clean.js",
+    "publish-prerelease": "bash ./scripts/publish-prerelease.sh"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.0",
