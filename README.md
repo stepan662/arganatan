@@ -1,4 +1,4 @@
-![React Arven logo](https://raw.githubusercontent.com/stepan662/react-arven/refs/heads/main/logo.png)
+![React Arven logo](https://raw.githubusercontent.com/stepan662/react-arven/refs/heads/main/logos/logo.svg)
 
 # React Arven
 
