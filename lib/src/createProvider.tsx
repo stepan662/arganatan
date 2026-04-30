@@ -1,6 +1,6 @@
 import React, { ReactNode, useRef } from "react";
 import {
-  createContext,
+  createSelectableContext,
   useContextSelector,
   useStoreContext,
 } from "./useContextSelector";
@@ -45,7 +45,7 @@ export function createProvider<
   type StateType = Data["state"];
   type ActionsType = Data["actions"];
 
-  const Context = createContext<{
+  const Context = createSelectableContext<{
     state: StateType;
     actions: ActionsType;
   }>();
@@ -57,10 +57,10 @@ export function createProvider<
     const result = controller(props as any);
 
     const state =
-      (result as Partial<ReturnType<StateType, ActionsType>>)?.state ||
+      (result as Partial<ReturnType<StateType, ActionsType>>)?.state ??
       undefined;
     const _actions =
-      (result as Partial<ReturnType<StateType, ActionsType>>)?.actions ||
+      (result as Partial<ReturnType<StateType, ActionsType>>)?.actions ??
       undefined;
 
     const actions = useStableActions(_actions);

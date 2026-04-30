@@ -19,7 +19,7 @@ interface StoreContext<T> {
   Consumer: React.Consumer<Store<T>>;
 }
 
-export function createContext<T>(): StoreContext<T> {
+export function createSelectableContext<T>(): StoreContext<T> {
   const context = createContextOrig<Store<T>>(undefined as any);
   const ProviderOrig = context.Provider;
   // @ts-expect-error
