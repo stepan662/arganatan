@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/stepan662/arganatan/compare/v1.0.0...v1.0.1) (2026-04-30)
+
+
+### Bug Fixes
+
+* test release pipeline ([02c4f3f](https://github.com/stepan662/arganatan/commit/02c4f3f3115ce7665c19c708852ef2a39b250441))
+
 # 1.0.0 (2026-04-30)
 
 
