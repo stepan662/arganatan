@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/stepan662/arganatan/compare/v1.0.2...v1.0.3) (2026-04-30)
+
+
+### Bug Fixes
+
+* readme working in npm ([c747ad6](https://github.com/stepan662/arganatan/commit/c747ad655507fcd27049cf93b839648b9588b8d1))
+
 ## [1.0.2](https://github.com/stepan662/arganatan/compare/v1.0.1...v1.0.2) (2026-04-30)
 
 
