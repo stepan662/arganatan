@@ -2,7 +2,7 @@
   "name": "arganatan",
   "version": "1.0.1",
   "description": "A React provider helper with stable actions for context-based state.",
-  "license": "ISC",
+  "license": "MIT",
   "author": "Stepan Granat <stepan.granat@gmail.com>",
   "repository": {
     "url": "https://github.com/stepan662/arganatan"
@@ -22,7 +22,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "build": "rollup -c ../rollup.config.js",

@@ -33,5 +33,6 @@
   "workspaces": [
     "lib/src",
     "testapp"
-  ]
+  ],
+  "license": "MIT"
 }
