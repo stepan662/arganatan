@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/stepan662/react-arven/compare/v1.2.0...v1.2.1) (2026-04-30)
+
+
+### Bug Fixes
+
+* add logo ([#3](https://github.com/stepan662/react-arven/issues/3)) ([988acb9](https://github.com/stepan662/react-arven/commit/988acb92de093412777c182ef19633d098066d16))
+
 # [1.2.0](https://github.com/stepan662/react-arven/compare/v1.1.1...v1.2.0) (2026-04-30)
 
 
