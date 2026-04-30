@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/stepan662/arganatan/compare/v1.0.5...v1.1.0) (2026-04-30)
+
+
+### Features
+
+* keep the API minimal ([bbd197a](https://github.com/stepan662/arganatan/commit/bbd197aee5e134dd8bb49add27d50a66803420cc))
+
 ## [1.0.5](https://github.com/stepan662/arganatan/compare/v1.0.4...v1.0.5) (2026-04-30)
 
 
