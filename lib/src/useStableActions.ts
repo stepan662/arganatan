@@ -51,6 +51,8 @@ export function useStableActions<A extends NonNullable<ActionMap> | undefined>(
   const currentActionsRef = useRef(actions);
   const stableActionsRef = useRef<A>();
 
+  currentActionsRef.current = actions;
+
   // stable actions
   if (!stableActionsRef.current) {
     stableActionsRef.current = createStableActions(currentActionsRef);

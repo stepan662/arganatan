@@ -104,6 +104,16 @@ describe("createProvider", () => {
     expect(renderCount).toBe(2);
     expect(screen.getByText("Count: 1")).toBeTruthy();
     expect(firstActionsRef).toBe(secondActionsRef);
+
+    act(() => {
+      screen.getByRole("button").click();
+    });
+
+    let thirdActionsRef = actionsRef;
+
+    expect(renderCount).toBe(3);
+    expect(screen.getByText("Count: 2")).toBeTruthy();
+    expect(firstActionsRef).toBe(thirdActionsRef);
   });
 
   test("unstable actions are made stable", () => {
