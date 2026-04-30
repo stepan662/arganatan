@@ -81,12 +81,12 @@ importers:
 
   testapp16:
     dependencies:
-      arganatan:
-        specifier: workspace:*
-        version: link:../lib
       react:
         specifier: ^16.14.0
         version: 16.14.0
+      react-arven:
+        specifier: workspace:*
+        version: link:../lib
       react-dom:
         specifier: ^16.14.0
         version: 16.14.0(react@16.14.0)
@@ -121,12 +121,12 @@ importers:
 
   testapp17:
     dependencies:
-      arganatan:
-        specifier: workspace:*
-        version: link:../lib
       react:
         specifier: ^17.0.1
         version: 17.0.2
+      react-arven:
+        specifier: workspace:*
+        version: link:../lib
       react-dom:
         specifier: ^17.0.1
         version: 17.0.2(react@17.0.2)
@@ -161,12 +161,12 @@ importers:
 
   testapp19:
     dependencies:
-      arganatan:
-        specifier: workspace:*
-        version: link:../lib
       react:
         specifier: ^18.3.0
         version: 18.3.1
+      react-arven:
+        specifier: workspace:*
+        version: link:../lib
       react-dom:
         specifier: ^18.3.0
         version: 18.3.1(react@18.3.1)

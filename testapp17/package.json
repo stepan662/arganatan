@@ -9,7 +9,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "arganatan": "workspace:*",
+    "react-arven": "workspace:*",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
