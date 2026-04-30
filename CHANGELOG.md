@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/stepan662/arganatan/compare/v1.0.4...v1.0.5) (2026-04-30)
+
+
+### Bug Fixes
+
+* add pack test ([117d54c](https://github.com/stepan662/arganatan/commit/117d54cc669dec543aa8131fec6e8a390624eaa5))
+
 ## [1.0.4](https://github.com/stepan662/arganatan/compare/v1.0.3...v1.0.4) (2026-04-30)
 
 
