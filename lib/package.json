@@ -1,6 +1,6 @@
 {
   "name": "arganatan",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React provider helper with stable actions for context-based state.",
   "license": "MIT",
   "author": "Stepan Granat <stepan.granat@gmail.com>",
