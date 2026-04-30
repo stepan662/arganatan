@@ -58,6 +58,32 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+  test-pack:
+    name: Test npm pack
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build library
+        run: pnpm build
+
+      - name: Test npm pack
+        run: pnpm test:pack
+
   typecheck:
     name: Typecheck packages
     runs-on: ubuntu-latest

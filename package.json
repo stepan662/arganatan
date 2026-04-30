@@ -10,7 +10,8 @@
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
     "clean": "node ./scripts/clean.js",
-    "publish-prerelease": "bash ./scripts/publish-prerelease.sh"
+    "publish-prerelease": "bash ./scripts/publish-prerelease.sh",
+    "test:pack": "node scripts/test-pack.mjs"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.0",
